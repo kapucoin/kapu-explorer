@@ -1,6 +1,6 @@
 # Kapu Blockchain Explorer
 
-Kapu Explorer version 0.2.0 fork Ark Explorer works in conjunction with the Ark Core API. It uses Redis for caching data and Freegeoip to parse IP geo-location data.
+Kapu Explorer version 0.2.0 fork is Ark Explorer works in conjunction with the Ark Core API. It uses Redis for caching data and Freegeoip to parse IP geo-location data.
 
 [![Build Status](https://travis-ci.org/ArkEcosystem/Ark-explorer.svg?branch=development)](https://travis-ci.org/ArkEcosystem/Ark-explorer)
 
