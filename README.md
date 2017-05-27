@@ -1,12 +1,12 @@
-# Ark Blockchain Explorer
+# Kapu Blockchain Explorer
 
-Ark Explorer version 0.2.0 works in conjunction with the Ark Core API. It uses Redis for caching data and Freegeoip to parse IP geo-location data.
+Kapu Explorer version 0.2.0 fork Ark Explorer works in conjunction with the Ark Core API. It uses Redis for caching data and Freegeoip to parse IP geo-location data.
 
 [![Build Status](https://travis-ci.org/ArkEcosystem/Ark-explorer.svg?branch=development)](https://travis-ci.org/ArkEcosystem/Ark-explorer)
 
 ## Prerequisites
 
-These programs and resources are required to install and run Ark Explorer
+These programs and resources are required to install and run Kapu Explorer
 
 - Nodejs v6.9.2 or higher (<https://nodejs.org/>) -- Nodejs serves as the underlying engine for code execution.
 
@@ -36,11 +36,11 @@ These programs and resources are required to install and run Ark Explorer
 
   `sudo npm install -g grunt`
 
-- Forever (<https://github.com/foreverjs/forever>) -- Forever manages the node processes for Ark Explorer
+- Forever (<https://github.com/foreverjs/forever>) -- Forever manages the node processes for Kapu Explorer
 
   `sudo npm install -g forever`
 
-- Git (<https://github.com/git/git>) -- Used for cloning and updating Ark Explorer
+- Git (<https://github.com/git/git>) -- Used for cloning and updating Kapu Explorer
 
   `sudo apt-get install -y git`
 
@@ -50,11 +50,11 @@ These programs and resources are required to install and run Ark Explorer
 
 ## Installation Steps
 
-Clone the Ark Explorer Repository:
+Clone the Kapu Explorer Repository:
 
 ```
-git clone https://github.com/ArkEcosystem/ark-explorer.git
-cd ark-explorer
+git clone https://github.com/kapucoin/kapu-explorer.git
+cd kapu-explorer
 npm install
 bower install
 ```
@@ -117,15 +117,15 @@ Replace **config.js** with **config.test** file from the **test** directory:
 
 `cp test/config.test ./config.js`
 
-Replace the **config.json** for the Ark Client the corresponding file under the **test** directory:
+Replace the **config.json** for the Kapu Client the corresponding file under the **test** directory:
 
 `cp test/config_Ark.json  /PATH_TO_Ark_DIR/config.json`
 
-Then restart the Ark Client (example):
+Then restart the Kapu Client (example):
 
 `bash /PATH_TO_Ark_DIR/Ark.sh reload`
 
-Launch Ark Explorer (runs on port 6040):
+Launch Kapu Explorer (runs on port 6040):
 
 `forever start app.js`
 
