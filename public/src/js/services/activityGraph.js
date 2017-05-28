@@ -229,7 +229,7 @@ ActivityGraph.prototype.addAccount = function (id) {
 };
 
 ActivityGraph.prototype.amount = function (tx, sign) {
-    return (sign + tx.amount / Math.pow(10, 8)) + ' ARK';
+    return (sign + tx.amount / Math.pow(10, 8)) + ' KAPU';
 };
 
 ActivityGraph.prototype.addTxSender = function (tx) {
