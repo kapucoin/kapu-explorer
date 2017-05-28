@@ -38,10 +38,10 @@ describe('Common API', function() {
         it('should be ok', function(done) {
             getPriceTicker(function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
-                node.expect(res.body).to.have.deep.property('tickers.ARK.BTC').to.be.a.number;
-                node.expect(res.body).to.have.deep.property('tickers.ARK.EUR').to.be.a.number;
-                node.expect(res.body).to.have.deep.property('tickers.ARK.USD').to.be.a.number;
-                node.expect(res.body).to.have.deep.property('tickers.ARK.CNY').to.be.a.number;
+                node.expect(res.body).to.have.deep.property('tickers.KAPU.BTC').to.be.a.number;
+                node.expect(res.body).to.have.deep.property('tickers.KAPU.EUR').to.be.a.number;
+                node.expect(res.body).to.have.deep.property('tickers.KAPU.USD').to.be.a.number;
+                node.expect(res.body).to.have.deep.property('tickers.KAPU.CNY').to.be.a.number;
                 node.expect(res.body).to.have.deep.property('tickers.BTC.USD').to.be.a.number;
                 node.expect(res.body).to.have.deep.property('tickers.BTC.EUR').to.be.a.number;
                 done();
