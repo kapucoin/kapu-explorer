@@ -60,16 +60,16 @@ angular.module('ark_explorer')
         var lisk = liskFilter (amount),
             factor = 1;
 
-        if (currency.tickers && currency.tickers.ARK && currency.tickers.ARK[currency.symbol]) {
-          factor = currency.tickers.ARK[currency.symbol];
-        } else if (currency.symbol !== 'ARK') {
+        if (currency.tickers && currency.tickers.KAPU && currency.tickers.KAPU[currency.symbol]) {
+          factor = currency.tickers.KAPU[currency.symbol];
+        } else if (currency.symbol !== 'KAPU') {
           // Exchange rate not available for current symbol
           return 'N/A';
         }
 
         if (decimal_places === undefined) {
           switch (currency.symbol) {
-            case 'ARK':
+            case 'KAPU':
             case 'BTC':
               return numberFilter ((lisk * factor), 8).replace (/\.?0+$/, '');
             default:
