@@ -20,6 +20,10 @@ describe('Common API', function() {
         node.get('/api/getPriceTicker', done);
     }
 
+    function getExchanges(done) {
+        node.get('/api/exchanges', done);
+    }
+
     function getSearch(id, done) {
         node.get('/api/search?id=' + id, done);
     }
@@ -34,14 +38,25 @@ describe('Common API', function() {
         });
     });
 
+    describe('GET /api/exchanges', function() {
+        it('should be ok', function(done) {
+            getExchanges(function(err, res) {
+                node.expect(res.body).to.have.property('success').to.be.ok;
+                node.expect(res.body).to.have.property('enabled').to.be.ok;
+                node.expect(res.body).to.have.deep.property('exchanges.poloniex').to.be.ok;
+                node.expect(res.body).to.have.deep.property('exchanges.bittrex').to.be.ok;
+                done();
+            });
+        });
+    });
+
     describe('GET /api/getPriceTicker', function() {
         it('should be ok', function(done) {
             getPriceTicker(function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
-                node.expect(res.body).to.have.deep.property('tickers.KAPU.BTC').to.be.a.number;
-                node.expect(res.body).to.have.deep.property('tickers.KAPU.EUR').to.be.a.number;
-                node.expect(res.body).to.have.deep.property('tickers.KAPU.USD').to.be.a.number;
-                node.expect(res.body).to.have.deep.property('tickers.KAPU.CNY').to.be.a.number;
+                node.expect(res.body).to.have.deep.property('tickers.RISE.BTC').to.be.a.number;
+                node.expect(res.body).to.have.deep.property('tickers.RISE.EUR').to.be.a.number;
+                node.expect(res.body).to.have.deep.property('tickers.RISE.USD').to.be.a.number;
                 node.expect(res.body).to.have.deep.property('tickers.BTC.USD').to.be.a.number;
                 node.expect(res.body).to.have.deep.property('tickers.BTC.EUR').to.be.a.number;
                 done();
