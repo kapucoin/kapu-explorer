@@ -86,7 +86,15 @@ The default `config.js` file contains all of the configuration settings for Ark 
 To enable Top Accounts functionality, start your ark node (not the explorer) using the following command:
 
 ```
-TOP=true node app.js
+{
+    "port": 5555,
+    "address": "0.0.0.0",
+    "version": "0.1.0",
+    "fileLogLevel": "info",
+    "logFileName": "logs/kapu_node.log",
+    "consoleLogLevel": "info",
+    "trustProxy": false,
+    "topAccounts": false, <--- This line needs to be changed to read true
 ```
 
 ## Managing Ark Explorer
