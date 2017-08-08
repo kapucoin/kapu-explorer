@@ -97,7 +97,7 @@ To enable Top Accounts functionality, start your ark node (not the explorer) usi
     "topAccounts": false, <--- This line needs to be changed to read true
 ```
 
-## Managing Ark Explorer
+## Managing Kapu Explorer
 
 To test that Ark Explorer is configured correctly, run the following command:
 
