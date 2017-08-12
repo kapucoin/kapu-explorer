@@ -1,4 +1,4 @@
-# Kapu  Blockchain Explorer
+# Ark Blockchain Explorer
 
 Ark Explorer version 0.2.0 works in conjunction with the Ark Core API. It uses Redis for caching data and Freegeoip to parse IP geo-location data.
 
@@ -53,8 +53,8 @@ These programs and resources are required to install and run Ark Explorer
 Clone the Ark Explorer Repository:
 
 ```
-git clone https://github.com/kapucoin/kapu-explorer.git
-cd kapu-explorer
+git clone https://github.com/ArkEcosystem/ark-explorer.git
+cd ark-explorer
 npm install
 bower install
 ```
@@ -86,20 +86,12 @@ The default `config.js` file contains all of the configuration settings for Ark 
 To enable Top Accounts functionality, start your ark node (not the explorer) using the following command:
 
 ```
-{
-    "port": 4600,
-    "address": "0.0.0.0",
-    "version": "0.1.0",
-    "fileLogLevel": "info",
-    "logFileName": "logs/kapu.log",
-    "consoleLogLevel": "info",
-    "trustProxy": false,
-    "topAccounts": false, <--- This line needs to be changed to read true
+TOP=true node app.js
 ```
 
-## Managing Kapu Explorer
+## Managing Ark Explorer
 
-To test that Kapu  Explorer is configured correctly, run the following command:
+To test that Ark Explorer is configured correctly, run the following command:
 
 `node app.js`
 
@@ -119,7 +111,7 @@ To stop Explorer after it has been started with `forever`, issue the following c
 
 ## Tests
 
-Before running any tests, please ensure Kapu  Explorer and Kapu Client are configured to run on the Ark Testnet.
+Before running any tests, please ensure Ark Explorer and Ark Client are configured to run on the Ark Testnet.
 
 Replace **config.js** with **config.test** file from the **test** directory:
 
@@ -127,13 +119,13 @@ Replace **config.js** with **config.test** file from the **test** directory:
 
 Replace the **config.json** for the Ark Client the corresponding file under the **test** directory:
 
-`cp test/config_Ark.json  /PATH_TO_Kapu_DIR/config.json`
+`cp test/config_Ark.json  /PATH_TO_Ark_DIR/config.json`
 
-Then restart the Kapu Client (example):
+Then restart the Ark Client (example):
 
-`bash /PATH_TO_Kapu_DIR/Ark.sh reload`
+`bash /PATH_TO_Ark_DIR/Ark.sh reload`
 
-Launch Kapu Explorer (runs on port 6040):
+Launch Ark Explorer (runs on port 6040):
 
 `forever start app.js`
 
