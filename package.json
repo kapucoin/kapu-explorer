@@ -1,7 +1,7 @@
 {
   "name": "ark-explorer",
   "version": "0.2.0",
-  "description": "Ark blockchain explorer",
+  "description": "Kapu blockchain explorer",
   "repository": {
     "type": "git",
     "url": "git@github.com:ArkEcosystem/ark-explorer.git"

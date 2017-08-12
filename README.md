@@ -1,12 +1,12 @@
-# Kapu Blockchain Explorer
+# Ark Blockchain Explorer
 
-Kapu Explorer version 0.2.0 fork is Ark Explorer works in conjunction with the Ark Core API. It uses Redis for caching data and Freegeoip to parse IP geo-location data.
+Ark Explorer version 0.2.0 works in conjunction with the Ark Core API. It uses Redis for caching data and Freegeoip to parse IP geo-location data.
 
 [![Build Status](https://travis-ci.org/ArkEcosystem/Ark-explorer.svg?branch=development)](https://travis-ci.org/ArkEcosystem/Ark-explorer)
 
 ## Prerequisites
 
-These programs and resources are required to install and run Kapu Explorer
+These programs and resources are required to install and run Ark Explorer
 
 - Nodejs v6.9.2 or higher (<https://nodejs.org/>) -- Nodejs serves as the underlying engine for code execution.
 
@@ -36,11 +36,11 @@ These programs and resources are required to install and run Kapu Explorer
 
   `sudo npm install -g grunt`
 
-- Forever (<https://github.com/foreverjs/forever>) -- Forever manages the node processes for Kapu Explorer
+- Forever (<https://github.com/foreverjs/forever>) -- Forever manages the node processes for Ark Explorer
 
   `sudo npm install -g forever`
 
-- Git (<https://github.com/git/git>) -- Used for cloning and updating Kapu Explorer
+- Git (<https://github.com/git/git>) -- Used for cloning and updating Ark Explorer
 
   `sudo apt-get install -y git`
 
@@ -50,11 +50,11 @@ These programs and resources are required to install and run Kapu Explorer
 
 ## Installation Steps
 
-Clone the Kapu Explorer Repository:
+Clone the Ark Explorer Repository:
 
 ```
-git clone https://github.com/kapucoin/kapu-explorer.git
-cd kapu-explorer
+git clone https://github.com/ArkEcosystem/ark-explorer.git
+cd ark-explorer
 npm install
 bower install
 ```
@@ -86,18 +86,10 @@ The default `config.js` file contains all of the configuration settings for Ark 
 To enable Top Accounts functionality, start your ark node (not the explorer) using the following command:
 
 ```
-{
-    "port": 5555,
-    "address": "0.0.0.0",
-    "version": "0.1.0",
-    "fileLogLevel": "info",
-    "logFileName": "logs/kapu_node.log",
-    "consoleLogLevel": "info",
-    "trustProxy": false,
-    "topAccounts": false, <--- This line needs to be changed to read true
+TOP=true node app.js
 ```
 
-## Managing Kapu Explorer
+## Managing Ark Explorer
 
 To test that Ark Explorer is configured correctly, run the following command:
 
@@ -125,15 +117,15 @@ Replace **config.js** with **config.test** file from the **test** directory:
 
 `cp test/config.test ./config.js`
 
-Replace the **config.json** for the Kapu Client the corresponding file under the **test** directory:
+Replace the **config.json** for the Ark Client the corresponding file under the **test** directory:
 
 `cp test/config_Ark.json  /PATH_TO_Ark_DIR/config.json`
 
-Then restart the Kapu Client (example):
+Then restart the Ark Client (example):
 
 `bash /PATH_TO_Ark_DIR/Ark.sh reload`
 
-Launch Kapu Explorer (runs on port 6040):
+Launch Ark Explorer (runs on port 6040):
 
 `forever start app.js`
 
