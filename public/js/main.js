@@ -2333,9 +2333,9 @@ angular.module('ark_explorer')
   })
   .filter('nethash', function () {
       return function (nethash) {
-          if (nethash === 'ce6b3b5b28c000fe4b810b843d20b971f316d237d5a9616dbc6f7f1118307fc6') {
+          if (nethash === '167130d695be9f945878237b84e3683c50ced3bbce4e4bf850ef6f9de166535e') {
               return 'Testnet';
-          } else if (nethash === '6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988')  {
+          } else if (nethash === 'ba23bc521372a6654b485cbf675f02112960893aee33bd607b58158a66b15e4d')  {
               return 'Mainnet';
           } else {
               return 'Local';
