@@ -1,5 +1,5 @@
 // Source: public/src/js/app.js
-angular.module('lisk_explorer',[
+angular.module('ark_explorer',[
     'ngAnimate',
     'ngResource',
     'ngRoute',
@@ -7,60 +7,66 @@ angular.module('lisk_explorer',[
     'ui.bootstrap',
     'gettext',
     'monospaced.qrcode',
-    'lisk_explorer.system',
-    'lisk_explorer.socket',
-    'lisk_explorer.blocks',
-    'lisk_explorer.transactions',
-    'lisk_explorer.address',
-    'lisk_explorer.search',
-    'lisk_explorer.tools',
-    'lisk_explorer.currency'
+    'ark_explorer.system',
+    'ark_explorer.socket',
+    'ark_explorer.blocks',
+    'ark_explorer.transactions',
+    'ark_explorer.address',
+    'ark_explorer.search',
+    'ark_explorer.tools',
+    'ark_explorer.currency'
 ]);
 
-angular.module('lisk_explorer.system', []);
-angular.module('lisk_explorer.socket', []);
-angular.module('lisk_explorer.blocks', []);
-angular.module('lisk_explorer.transactions', []);
-angular.module('lisk_explorer.address', []);
-angular.module('lisk_explorer.search', []);
-angular.module('lisk_explorer.tools', ['naturalSort']);
-angular.module('lisk_explorer.currency', []);
+angular.module('ark_explorer.system', []);
+angular.module('ark_explorer.socket', []);
+angular.module('ark_explorer.blocks', []);
+angular.module('ark_explorer.transactions', []);
+angular.module('ark_explorer.address', []);
+angular.module('ark_explorer.search', []);
+angular.module('ark_explorer.tools', ['naturalSort']);
+angular.module('ark_explorer.currency', []);
 
 // Source: public/src/js/controllers/activityGraph.js
-angular.module('lisk_explorer.tools').controller('ActivityGraph',
+angular.module('ark_explorer.tools').controller('ActivityGraph',
   function (activityGraph, $scope) {
       activityGraph($scope);
   });
 
 // Source: public/src/js/controllers/address.js
-angular.module('lisk_explorer.address').controller('AddressController',
-  function ($scope, $rootScope, $routeParams, $location, $http, addressTxs) {
-      $scope.getAddress = function () {
-          $http.get('/api/getAccount', {
-              params : {
-                  address : $routeParams.address
-              }
-          }).then(function (resp) {
-              if (resp.data.success) {
-                  $scope.address = resp.data;
-              } else {
-                  throw 'Account was not found!';
-              }
-          }).catch(function (error) {
-              $location.path('/');
-          });
-      };
+angular.module('ark_explorer.address').controller('AddressController',
+	function ($scope, $rootScope, $routeParams, $location, $http, addressTxs) {
+		$scope.getAddress = function () {
+			$http.get('/api/getAccount', {
+				params: {
+					address: $routeParams.address
+				}
+			}).then(function (resp) {
+				if (resp.data.success) {
+						$scope.address = resp.data;
+				} else {
+						throw 'Account was not found!';
+				}
+			}).catch(function (error) {
+				$location.path('/');
+			});
+		};
 
-      $scope.address = {
-          address : $routeParams.address
-      };
+		$scope.address = {
+			address: $routeParams.address
+		};
 
-      $scope.getAddress();
-      $scope.txs = addressTxs($routeParams.address);
-  });
+		// Sets the filter for which transactions to display
+		$scope.filterTxs = function(direction) {
+			$scope.direction = direction;
+			$scope.txs = addressTxs($routeParams.address, direction);
+		};
+
+		$scope.getAddress();
+		$scope.txs = addressTxs($routeParams.address);
+	});
 
 // Source: public/src/js/controllers/blocks.js
-angular.module('lisk_explorer.blocks').controller('BlocksController',
+angular.module('ark_explorer.blocks').controller('BlocksController',
   function ($scope, $rootScope, $routeParams, $location, $http, blockTxs) {
       $scope.getLastBlocks = function (n) {
           var offset = 0;
@@ -112,20 +118,20 @@ angular.module('lisk_explorer.blocks').controller('BlocksController',
   });
 
 // Source: public/src/js/controllers/currency.js
-angular.module ('lisk_explorer.currency').controller ('CurrencyController',
+angular.module ('ark_explorer.currency').controller ('CurrencyController',
   function ($scope, $rootScope) {
-    $rootScope.currency.symbol = localStorage && localStorage.getItem ('rise_explorer-currency') || 'RISE';
+    $rootScope.currency.symbol = localStorage && localStorage.getItem ('ark_explorer-currency') || 'ARK';
 
     $scope.setCurrency = function(currency) {
       $rootScope.currency.symbol = currency;
       if (localStorage) {
-        localStorage.setItem ('rise_explorer-currency', currency);
+        localStorage.setItem ('ark_explorer-currency', currency);
       }
     };
   });
 
 // Source: public/src/js/controllers/delegateMonitor.js
-angular.module('lisk_explorer.tools').controller('DelegateMonitor',
+angular.module('ark_explorer.tools').controller('DelegateMonitor',
   function (delegateMonitor, orderBy, $scope, $rootScope, $http) {
       delegateMonitor($scope);
 
@@ -163,28 +169,19 @@ angular.module('lisk_explorer.tools').controller('DelegateMonitor',
   });
 
 // Source: public/src/js/controllers/footer.js
-angular.module('lisk_explorer.system').controller('FooterController',
+angular.module('ark_explorer.system').controller('FooterController',
   function ($scope) {
 
   });
 
 // Source: public/src/js/controllers/header.js
-angular.module('lisk_explorer.system').controller('HeaderController',
-  function (header, $scope, $http) {
-      $scope.getWalletAddress = function () {
-          $http.get('/api/wallet').then(function (resp) {
-              if (resp.data) {
-                  $scope.walletAddress = resp.data.walletAddress;
-              }
-          });
-      };
-      $scope.getWalletAddress();
-
+angular.module('ark_explorer.system').controller('HeaderController',
+  function (header, $scope) {
       header($scope);
   });
 
 // Source: public/src/js/controllers/index.js
-angular.module('lisk_explorer.system').controller('IndexController',
+angular.module('ark_explorer.system').controller('IndexController',
   function ($scope, $http, $interval) {
       $scope.getLastBlocks = function () {
           $http.get('/api/getLastBlocks').then(function (resp) {
@@ -228,19 +225,19 @@ angular.module('lisk_explorer.system').controller('IndexController',
   });
 
 // Source: public/src/js/controllers/marketWatcher.js
-angular.module('lisk_explorer.tools').controller('MarketWatcher',
+angular.module('ark_explorer.tools').controller('MarketWatcher',
   function (marketWatcher, $scope) {
       marketWatcher($scope);
   });
 
 // Source: public/src/js/controllers/networkMonitor.js
-angular.module('lisk_explorer.tools').controller('NetworkMonitor',
+angular.module('ark_explorer.tools').controller('NetworkMonitor',
   function (networkMonitor, $scope) {
       networkMonitor($scope);
   });
 
 // Source: public/src/js/controllers/search.js
-angular.module('lisk_explorer.search').controller('SearchController',
+angular.module('ark_explorer.search').controller('SearchController',
   function ($scope, $routeParams, $location, $timeout, Global, $http) {
       $scope.loading = false;
       $scope.badQuery = false;
@@ -281,7 +278,7 @@ angular.module('lisk_explorer.search').controller('SearchController',
   });
 
 // Source: public/src/js/controllers/topAccounts.js
-angular.module('lisk_explorer.address').controller('TopAccounts',
+angular.module('ark_explorer.address').controller('TopAccounts',
   function ($scope, lessMore) {
       $scope.topAccounts = lessMore({
           url : '/api/getTopAccounts',
@@ -290,7 +287,7 @@ angular.module('lisk_explorer.address').controller('TopAccounts',
   });
 
 // Source: public/src/js/controllers/transactions.js
-angular.module('lisk_explorer.transactions').controller('TransactionsController',
+angular.module('ark_explorer.transactions').controller('TransactionsController',
   function ($scope, $rootScope, $routeParams, $location, $http) {
       $scope.getTransaction = function () {
           $http.get('/api/getTransaction', {
@@ -314,7 +311,7 @@ angular.module('lisk_explorer.transactions').controller('TransactionsController'
 // Source: public/src/js/directives/clipCopy.js
 var ZeroClipboard = window.ZeroClipboard;
 
-angular.module('lisk_explorer')
+angular.module('ark_explorer')
   .directive('clipCopy', function () {
       ZeroClipboard.config({
           moviePath: '/swf/ZeroClipboard.swf',
@@ -350,7 +347,7 @@ angular.module('lisk_explorer')
   });
 
 // Source: public/src/js/directives/delegateMonitor.js
-angular.module('lisk_explorer.tools')
+angular.module('ark_explorer.tools')
   .directive('forgingStatus', function ($sce) {
       return {
           restrict: 'A',
@@ -417,7 +414,7 @@ angular.module('lisk_explorer.tools')
   });
 
 // Source: public/src/js/directives/depthChart.js
-angular.module('lisk_explorer.tools')
+angular.module('ark_explorer.tools')
   .directive('depthChart', function ($timeout) {
       function DepthChart (scope, elm, attr) {
           var self = this;
@@ -519,7 +516,7 @@ angular.module('lisk_explorer.tools')
   });
 
 // Source: public/src/js/directives/marketWatcher.js
-angular.module('lisk_explorer.tools')
+angular.module('ark_explorer.tools')
   .directive('orders', function () {
       return {
           restrict: 'E',
@@ -534,7 +531,7 @@ angular.module('lisk_explorer.tools')
   });
 
 // Source: public/src/js/directives/networkMonitor.js
-angular.module('lisk_explorer.tools')
+angular.module('ark_explorer.tools')
   .directive('peers', function (orderBy) {
       return {
           restrict: 'E',
@@ -565,7 +562,7 @@ angular.module('lisk_explorer.tools')
   });
 
 // Source: public/src/js/directives/scroll.js
-angular.module('lisk_explorer')
+angular.module('ark_explorer')
   .directive('scroll', function ($window) {
       return function (scope, element, attrs) {
           angular.element($window).bind('scroll', function () {
@@ -580,7 +577,7 @@ angular.module('lisk_explorer')
   });
 
 // Source: public/src/js/directives/stockChart.js
-angular.module('lisk_explorer.tools')
+angular.module('ark_explorer.tools')
   .directive('stockChart', function ($timeout) {
       function StockChart (scope, elm, attr) {
           var self = this;
@@ -838,7 +835,7 @@ angular.module('lisk_explorer.tools')
   });
 
 // Source: public/src/js/directives/whenScrolled.js
-angular.module('lisk_explorer')
+angular.module('ark_explorer')
   .directive('whenScrolled', function ($window) {
       return {
           restric: 'A',
@@ -1095,7 +1092,7 @@ ActivityGraph.prototype.addAccount = function (id) {
 };
 
 ActivityGraph.prototype.amount = function (tx, sign) {
-    return (sign + tx.amount / Math.pow(10, 8)) + ' RISE';
+    return (sign + tx.amount / Math.pow(10, 8)) + ' KAPU';
 };
 
 ActivityGraph.prototype.addTxSender = function (tx) {
@@ -1167,7 +1164,7 @@ ActivityGraph.prototype.addBlockTxs = function (block) {
     }
 };
 
-angular.module('lisk_explorer.tools').factory('activityGraph',
+angular.module('ark_explorer.tools').factory('activityGraph',
   function ($socket) {
       return function ($scope) {
           var activityGraph = new ActivityGraph(),
@@ -1205,14 +1202,15 @@ angular.module('lisk_explorer.tools').factory('activityGraph',
   });
 
 // Source: public/src/js/services/addressTxs.js
-angular.module('lisk_explorer.system').factory('addressTxs',
+angular.module('ark_explorer.system').factory('addressTxs',
   function ($http, $q) {
-      return function (address) {
+      return function (address, direction) {
           var lessMore = new LessMore($http, $q, {
-              url     : '/api/getTransactionsByAddress',
-              parent  : 'address',
-              key     : 'transactions',
-              address : address
+              url       : '/api/getTransactionsByAddress',
+              parent    : 'address',
+              key       : 'transactions',
+              address   : address,
+              direction : direction
           });
 
           lessMore.loadMore = function () {
@@ -1235,7 +1233,7 @@ angular.module('lisk_explorer.system').factory('addressTxs',
   });
 
 // Source: public/src/js/services/blockTxs.js
-angular.module('lisk_explorer.system').factory('blockTxs',
+angular.module('ark_explorer.system').factory('blockTxs',
   function ($http, $q) {
       return function (blockId) {
           var lessMore = new LessMore($http, $q, {
@@ -1266,7 +1264,7 @@ var DelegateMonitor = function ($scope, $rootScope, forgingMonitor) {
 
     this.updateTotals = function (active) {
         $scope.totalDelegates = active.totalCount || 0;
-        $scope.totalActive    = 101;
+        $scope.totalActive    = 51;
 
         if ($scope.totalDelegates > $scope.totalActive) {
             $scope.totalStandby = ($scope.totalDelegates - $scope.totalActive);
@@ -1357,7 +1355,7 @@ var DelegateMonitor = function ($scope, $rootScope, forgingMonitor) {
     };
 };
 
-angular.module('lisk_explorer.tools').factory('delegateMonitor',
+angular.module('ark_explorer.tools').factory('delegateMonitor',
   function ($socket, $rootScope, forgingMonitor) {
       return function ($scope) {
           var delegateMonitor = new DelegateMonitor($scope, $rootScope, forgingMonitor),
@@ -1436,20 +1434,20 @@ var ForgingMonitor = function (forgingStatus) {
             unprocessed += totals.staleStatus || 0;
 
         if (unprocessed > 0) {
-            return (101 - unprocessed);
+            return (51 - unprocessed);
         } else {
-            return 101;
+            return 51;
         }
     };
 };
 
-angular.module('lisk_explorer.tools').service('forgingMonitor',
+angular.module('ark_explorer.tools').service('forgingMonitor',
   function (forgingStatus) {
       return new ForgingMonitor(forgingStatus);
   });
 
 // Source: public/src/js/services/forgingStatus.js
-angular.module('lisk_explorer.tools').service('forgingStatus',
+angular.module('ark_explorer.tools').service('forgingStatus',
   function ($rootScope, epochStampFilter, roundFilter) {
       return function (delegate) {
           var status = { updatedAt: delegate.blocksAt },
@@ -1483,7 +1481,7 @@ angular.module('lisk_explorer.tools').service('forgingStatus',
           } else if (status.awaitingSlot === 2) {
               // Awaiting slot, but missed block in last round
               status.code = 4;
-          } else if (!status.blockAt || !status.updatedAt) {
+          } else if (!status.blockAt && !status.updatedAt) {
               // Awaiting status or unprocessed
               status.code = 5;
           // For delegates which not forged a signle block yet (statuses 0,3,5 not apply here)
@@ -1510,7 +1508,7 @@ angular.module('lisk_explorer.tools').service('forgingStatus',
 
 // Source: public/src/js/services/global.js
 // Global service for global variables
-angular.module('lisk_explorer.system')
+angular.module('ark_explorer.system')
   .factory('Global', [ function () { return true; } ])
   .factory('Version',
     function ($resource) {
@@ -1520,7 +1518,7 @@ angular.module('lisk_explorer.system')
 // Source: public/src/js/services/header.js
 var Header = function ($rootScope) {
     $rootScope.currency = {
-      symbol: 'RISE'
+      symbol: 'KAPU'
     };
 
     this.updateBlockStatus = function (res) {
@@ -1541,10 +1539,10 @@ var Header = function ($rootScope) {
             $rootScope.currency.tickers = res.tickers;
         }
 
-        // When ticker for user-stored currency is not available - switch to RISE temporarly
-        if ($rootScope.currency.symbol !== 'RISE' && (!$rootScope.currency.tickers || !$rootScope.currency.tickers.RISE || !$rootScope.currency.tickers.RISE[$rootScope.currency.symbol])) {
-            console.log ('Currency ' + $rootScope.currency.symbol + ' not available, fallback to RISE');
-            $rootScope.currency.symbol = 'RISE';
+        // When ticker for user-stored currency is not available - switch to KAPU temporarly
+        if ($rootScope.currency.symbol !== 'KAPU' && (!$rootScope.currency.tickers || !$rootScope.currency.tickers.KAPU|| !$rootScope.currency.tickers.ARK[$rootScope.currency.symbol])) {
+            console.log ('Currency ' + $rootScope.currency.symbol + ' not available, fallback to KAPU');
+            $rootScope.currency.symbol = 'KAPU';
         }
     };
 
@@ -1557,7 +1555,7 @@ var Header = function ($rootScope) {
     };
 };
 
-angular.module('lisk_explorer.system').factory('header',
+angular.module('ark_explorer.system').factory('header',
   function ($rootScope, $socket) {
       return function ($scope) {
           var header = new Header($rootScope),
@@ -1591,7 +1589,7 @@ var LessMore = function ($http, $q, params) {
     this.key     = params.key     || '';
     this.offset  = params.offset  || 0;
     this.maximum = params.maximum || 2000;
-    this.limit   = params.limit   || 50;
+    this.limit   = params.limit   || 49;
 
     angular.forEach(['url', 'parent', 'key', 'offset', 'maximum', 'limit'], function (key) {
         delete params[key];
@@ -1728,7 +1726,7 @@ LessMore.prototype.loadLess = function () {
     this.prevOffset();
 };
 
-angular.module('lisk_explorer.system').factory('lessMore',
+angular.module('ark_explorer.system').factory('lessMore',
   function ($http, $q) {
       return function (params) {
           return new LessMore($http, $q, params);
@@ -1739,7 +1737,6 @@ angular.module('lisk_explorer.system').factory('lessMore',
 var MarketWatcher = function ($q, $http, $scope) {
     var self = this,
         interval;
-    $scope.exchanges = [];
 
     $scope.setTab = function (tab) {
         $scope.oldTab = $scope.tab;
@@ -1860,7 +1857,7 @@ var MarketWatcher = function ($q, $http, $scope) {
     });
 };
 
-angular.module('lisk_explorer.tools').factory('marketWatcher',
+angular.module('ark_explorer.tools').factory('marketWatcher',
   function ($q, $http, $socket) {
       return function ($scope) {
           var marketWatcher = new MarketWatcher($q, $http, $scope),
@@ -1887,7 +1884,7 @@ var NetworkMonitor = function ($scope) {
 
     function Platforms () {
         this.counter   = [0,0,0,0];
-        this.platforms = ['Darwin', 'Linux', 'Windows'];
+        this.platforms = ['Darwin', 'Linux', 'FreeBSD'];
 
         this.detect = function (platform) {
             if (angular.isNumber(platform.group)) {
@@ -2043,7 +2040,7 @@ var NetworkMap = function () {
     L.Icon.Default.imagePath = '/img/leaflet';
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
     var PlatformIcon = L.Icon.extend({
@@ -2139,7 +2136,7 @@ var NetworkMap = function () {
     };
 };
 
-angular.module('lisk_explorer.tools').factory('networkMonitor',
+angular.module('ark_explorer.tools').factory('networkMonitor',
   function ($socket) {
       return function ($scope) {
           var networkMonitor = new NetworkMonitor($scope),
@@ -2192,7 +2189,7 @@ var OrderBy = function (predicate) {
     };
 };
 
-angular.module('lisk_explorer.system').factory('orderBy',
+angular.module('ark_explorer.system').factory('orderBy',
   function () {
       return function (predicate) {
           return new OrderBy(predicate);
@@ -2200,7 +2197,7 @@ angular.module('lisk_explorer.system').factory('orderBy',
   });
 
 // Source: public/src/js/services/socket.js
-angular.module('lisk_explorer.socket').factory('$socket',
+angular.module('ark_explorer.socket').factory('$socket',
   function ($location, $rootScope) {
     return function (namespace) {
           var socket = io($location.host() + ':' + $location.port() + namespace, { 'forceNew': true });
@@ -2242,7 +2239,7 @@ angular.module('lisk_explorer.socket').factory('$socket',
   });
 
 // Source: public/src/js/services/txTypes.js
-angular.module('lisk_explorer.system').value('txTypes', {
+angular.module('ark_explorer.system').value('txTypes', {
     0 : 'Normal transaction',
     1 : 'Second signature creation',
     2 : 'Delegate registration',
@@ -2254,20 +2251,24 @@ angular.module('lisk_explorer.system').value('txTypes', {
 });
 
 // Source: public/src/js/filters.js
-angular.module('lisk_explorer')
+function smallId(fullId) {
+  return fullId.slice(0, 5) + '...' + fullId.slice(-5)
+}
+
+angular.module('ark_explorer')
   .filter('approval', function () {
       return function (votes) {
           if (isNaN(votes)) {
               return 0;
           } else {
-              return ((parseInt(votes) / 1009000000000000) * 100).toFixed(2);
+              return ((parseInt(votes) / 10000000000000000) * 100).toFixed(2);
           }
       };
   })
   .filter('epochStamp', function () {
       return function (d) {
           return new Date(
-              (((Date.UTC(2016, 4, 24, 17, 0, 0, 0) / 1000) + d) * 1000)
+              (((Date.UTC(2017,2,21,13,0,0,0) / 1000) + d) * 1000)
           );
       };
   })
@@ -2310,16 +2311,16 @@ angular.module('lisk_explorer')
         var lisk = liskFilter (amount),
             factor = 1;
 
-        if (currency.tickers && currency.tickers.RISE && currency.tickers.RISE[currency.symbol]) {
-          factor = currency.tickers.RISE[currency.symbol];
-        } else if (currency.symbol !== 'RISE') {
+        if (currency.tickers && currency.tickers.KAPU && currency.tickers.KAPU[currency.symbol]) {
+          factor = currency.tickers.KAPU[currency.symbol];
+        } else if (currency.symbol !== 'KAPU') {
           // Exchange rate not available for current symbol
           return 'N/A';
         }
 
         if (decimal_places === undefined) {
           switch (currency.symbol) {
-            case 'RISE':
+            case 'KAPU':
             case 'BTC':
               return numberFilter ((lisk * factor), 8).replace (/\.?0+$/, '');
             default:
@@ -2332,9 +2333,9 @@ angular.module('lisk_explorer')
   })
   .filter('nethash', function () {
       return function (nethash) {
-          if (nethash === 'e90d39ac200c495b97deb6d9700745177c7fc4aa80a404108ec820cbeced054c') {
+          if (nethash === 'ce6b3b5b28c000fe4b810b843d20b971f316d237d5a9616dbc6f7f1118307fc6') {
               return 'Testnet';
-          } else if (nethash === 'cd8171332c012514864edd8eb6f68fc3ea6cb2afbaf21c56e12751022684cea5v')  {
+          } else if (nethash === '6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988')  {
               return 'Mainnet';
           } else {
               return 'Local';
@@ -2346,7 +2347,7 @@ angular.module('lisk_explorer')
           if (isNaN(height)) {
               return 0;
           } else {
-              return Math.floor(height / 101) + (height % 101 > 0 ? 1 : 0);
+              return Math.floor(height / 51) + (height % 51 > 0 ? 1 : 0);
           }
       };
   })
@@ -2417,25 +2418,37 @@ angular.module('lisk_explorer')
           return d.getFullYear() + '/' + month + '/' + day + ' ' + h + ':' + m + ':' + s;
       };
   })
-  .filter('txSender', function () {
-      return function (tx) {
-          return ((tx.senderDelegate && tx.senderDelegate.username) || tx.senderUsername || (tx.knownSender && tx.knownSender.owner) || tx.senderId);
-      };
-  })
-  .filter('address', function () {
-      return function (a) {
-          return (a.username || (a.knowledge && a.knowledge.owner) || a.address);
-      };
-  })
-  .filter('txRecipient', function (txTypes) {
-      return function (tx) {
-          if (tx.type === 0) {
-              return ((tx.recipientDelegate && tx.recipientDelegate.username) || tx.recipientUsername || (tx.knownRecipient && tx.knownRecipient.owner) || tx.recipientId);
-          } else {
-              return (txTypes[parseInt(tx.type)]);
-          }
-      };
-  })
+    .filter('smallId', function () {
+        return function (fullId) {
+            return smallId(fullId)
+        };
+    })
+    .filter('txSender', function (txTypes) {
+        return function (tx) {
+            if (tx.senderDelegate && tx.senderDelegate.username)
+                return tx.senderDelegate.username
+            if (tx.senderUsername)
+                return tx.senderUsername
+            if (tx.knownSender && tx.knownSender.owner)
+                return tx.knownSender.owner
+
+            return smallId(tx.senderId)
+        };
+    })
+    .filter('txRecipient', function (txTypes) {
+        return function (tx) {
+            if (tx.type !== 0)
+                return txTypes[parseInt(tx.type)]
+            if (tx.recipientDelegate && tx.recipientDelegate.username)
+                return tx.recipientDelegate.username
+            if (tx.recipientUsername)
+                return tx.recipientUsername
+            if (tx.knownRecipient && tx.knownRecipient.owner)
+                return tx.knownRecipient.owner
+
+            return smallId(tx.recipientId)
+        };
+    })
   .filter('txType', function (txTypes) {
       return function (tx) {
           return txTypes[parseInt(tx.type)];
@@ -2460,7 +2473,7 @@ angular.module('lisk_explorer')
 
 // Source: public/src/js/config.js
 // Setting up routes
-angular.module('lisk_explorer').config(function ($routeProvider) {
+angular.module('ark_explorer').config(function ($routeProvider) {
     $routeProvider.
     when('/', {
         templateUrl: '/views/index.html',
@@ -2509,7 +2522,7 @@ angular.module('lisk_explorer').config(function ($routeProvider) {
 });
 
 // Setting HTML5 location mode
-angular.module('lisk_explorer')
+angular.module('ark_explorer')
   .config(function ($locationProvider) {
       $locationProvider.html5Mode(true);
       $locationProvider.hashPrefix('!');
@@ -2544,11 +2557,11 @@ angular.module('lisk_explorer')
 angular.element(document).ready(
   function () {
       // Init the app
-      // angular.bootstrap(document, ['lisk_explorer']);
+      // angular.bootstrap(document, ['ark_explorer']);
   });
 
 // Source: public/src/js/translations.js
-angular.module('lisk_explorer').run(['gettextCatalog', function (gettextCatalog) {
+angular.module('ark_explorer').run(['gettextCatalog', function (gettextCatalog) {
 /* jshint -W100 */
 /* jshint +W100 */
 }]);
