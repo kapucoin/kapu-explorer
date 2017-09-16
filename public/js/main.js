@@ -120,7 +120,7 @@ angular.module('ark_explorer.blocks').controller('BlocksController',
 // Source: public/src/js/controllers/currency.js
 angular.module ('ark_explorer.currency').controller ('CurrencyController',
   function ($scope, $rootScope) {
-    $rootScope.currency.symbol = localStorage && localStorage.getItem ('ark_explorer-currency') || 'ARK';
+    $rootScope.currency.symbol = localStorage && localStorage.getItem ('ark_explorer-currency') || 'KAPU';
 
     $scope.setCurrency = function(currency) {
       $rootScope.currency.symbol = currency;
@@ -2335,7 +2335,7 @@ angular.module('ark_explorer')
       return function (nethash) {
           if (nethash === '167130d695be9f945878237b84e3683c50ced3bbce4e4bf850ef6f9de166535e') {
               return 'Testnet';
-          } else if (nethash === 'ba23bc521372a6654b485cbf675f02112960893aee33bd607b58158a66b15e4d')  {
+          } else if (nethash === 'a9562cb585629e926c739aa76a0cb17cbf3ad8f77c575ab77f4196ea62813cfb')  {
               return 'Mainnet';
           } else {
               return 'Local';
